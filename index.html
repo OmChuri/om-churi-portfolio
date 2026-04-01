@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Om Churi Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Poppins',sans-serif;
+color:white;
+overflow-x:hidden;
+background:linear-gradient(-45deg,#667eea,#764ba2,#00ccff,#6a11cb);
+background-size:400% 400%;
+animation:gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG{
+0%{background-position:0%}
+50%{background-position:100%}
+100%{background-position:0%}
+}
+
+/* Floating particles */
+.floating span{
+position:absolute;
+width:15px;height:15px;
+background:rgba(255,255,255,0.2);
+border-radius:50%;
+animation:float 15s linear infinite;
+}
+.floating span:nth-child(1){left:10%;}
+.floating span:nth-child(2){left:30%;}
+.floating span:nth-child(3){left:60%;}
+.floating span:nth-child(4){left:80%;}
+
+@keyframes float{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-10vh);}
+}
+
+/* Header */
+header{
+position:fixed;
+width:100%;
+top:0;
+background:rgba(0,0,0,0.3);
+backdrop-filter:blur(10px);
+padding:15px;
+z-index:1000;
+}
+
+nav{
+max-width:1200px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+}
+
+.nav-links{
+display:flex;
+gap:20px;
+list-style:none;
+}
+
+.nav-links a{
+color:white;text-decoration:none;
+}
+.nav-links a:hover{color:#00ccff;}
+
+/* Hero */
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
+
+.hero h1{font-size:50px;}
+
+/* Card */
+.card{
+backdrop-filter:blur(15px);
+background:rgba(255,255,255,0.1);
+padding:20px;
+border-radius:15px;
+margin:20px;
+transition:0.3s;
+}
+.card:hover{transform:translateY(-5px);}
+
+/* Sections */
+section{
+padding:80px 20px;
+max-width:1100px;
+margin:auto;
+}
+
+h2{text-align:center;margin-bottom:20px;}
+
+/* Grid */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+/* Button */
+.btn{
+display:inline-block;
+padding:10px 20px;
+background:linear-gradient(45deg,#00ccff,#667eea);
+color:white;
+border-radius:5px;
+text-decoration:none;
+margin-top:10px;
+transition:0.3s;
+}
+.btn:hover{
+transform:scale(1.05);
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Images */
+img{
+width:100%;
+border-radius:10px;
+transition:0.3s;
+}
+img:hover{transform:scale(1.05);}
+
+/* Chatbot */
+#chatbot-container{
+position:fixed;
+bottom:20px;
+right:20px;
+width:320px;
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(15px);
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+#chat-header{
+background:linear-gradient(45deg,#00ccff,#667eea);
+padding:10px;
+text-align:center;
+font-weight:bold;
+}
+
+#chat-box{
+height:200px;
+overflow-y:auto;
+padding:10px;
+}
+
+.bot{
+background:#ffffff20;
+padding:8px;
+border-radius:10px;
+margin:5px 0;
+}
+
+.user{
+text-align:right;
+background:#00ccff;
+color:black;
+padding:8px;
+border-radius:10px;
+margin:5px 0;
+}
+
+#chat-input{
+display:flex;
+}
+
+#chat-input input{
+flex:1;
+padding:10px;
+border:none;
+outline:none;
+}
+
+#chat-input button{
+background:#00ccff;
+border:none;
+padding:10px;
+cursor:pointer;
+}
+
+/* Mobile */
+@media(max-width:768px){
+.hero h1{font-size:30px;}
+.nav-links{display:none;}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="floating">
+<span></span><span></span><span></span><span></span>
+</div>
+
+<header>
+<nav>
+<h2>Om Churi</h2>
+<ul class="nav-links">
+<li><a href="#home">Home</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#certificates">Certificates</a></li>
+<li><a href="#internships">Internships</a></li>
+</ul>
+</nav>
+</header>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+<div>
+<h1>Om Churi</h1>
+<p>IT Engineering Student | AI | Data Analytics</p>
+
+<div class="card">
+<p><i class="fas fa-envelope"></i> 
+<a href="mailto:omchuri2005@gmail.com" style="color:white;">Email</a></p>
+
+<p><i class="fab fa-linkedin"></i> 
+<a href="https://www.linkedin.com/in/om-churi/" target="_blank" style="color:white;">LinkedIn</a></p>
+
+<p><i class="fab fa-github"></i> 
+<a href="https://github.com/OmChuri" target="_blank" style="color:white;">GitHub</a></p>
+
+<a href="https://drive.google.com/file/d/1nHXRuFYmeLYfPqPjmby-mjD9e1yeOe2F/view?usp=sharing" target="_blank" class="btn">
+📄 View Resume
+</a>
+</div>
+
+</div>
+</section>
+
+<!-- PROJECTS -->
+
+<section id="projects">
+<h2>Projects</h2>
+<div class="grid">
+
+<div class="card">
+<img src="https://source.unsplash.com/400x200/?ai">
+<h3>AI Chatbot</h3>
+<p>Python NLP chatbot.</p>
+</div>
+
+<div class="card">
+<img src="https://source.unsplash.com/400x200/?data">
+<h3>Data Analytics</h3>
+<p>Customer segmentation.</p>
+</div>
+
+<div class="card">
+<img src="https://source.unsplash.com/400x200/?machine-learning">
+<h3>Car Price Prediction</h3>
+<p>ML regression model.</p>
+</div>
+
+<div class="card">
+<img src="https://source.unsplash.com/400x200/?iot">
+<h3>AgroSphere IoT</h3>
+<p>Smart farming system.</p>
+</div>
+
+</div>
+</section>
+
+<!-- SKILLS -->
+
+<section id="skills">
+<h2>Skills</h2>
+<div class="grid">
+<div class="card">Python, SQL</div>
+<div class="card">Machine Learning</div>
+<div class="card">Data Analysis</div>
+<div class="card">Power BI / Tableau</div>
+</div>
+</section>
+
+<!-- CERTIFICATES -->
+
+<section id="certificates">
+<h2>Certificates</h2>
+<div class="grid">
+
+<div class="card">
+<h3>Tata</h3>
+<p>Data Visualisation: Empowering Business with Effective Insights</p>
+<a href="https://drive.google.com/file/d/1Uqet6Dv_ZLxMjNK0pKimxJ1vCuz-dMs1/view" target="_blank" class="btn">View Certificate</a>
+</div>
+
+<div class="card">
+<h3>Udemy</h3>
+<p>Data Science Course</p>
+<a href="https://drive.google.com/file/d/15hXoLvmO0fVPLmqusU_zqypgha-zQ0fS/view" target="_blank" class="btn">View Certificate</a>
+</div>
+
+<div class="card">
+<h3>Quantium</h3>
+<p>Data Analytics Job Simulation</p>
+<a href="https://drive.google.com/file/d/1RFOGmeO2HEJl2GciS0PtpGgt0lW_jyLC/view" target="_blank" class="btn">View Certificate</a>
+</div>
+
+<div class="card">
+<h3>Deloitte</h3>
+<p>Data Analytics Job Simulation</p>
+<a href="https://drive.google.com/file/d/1wu9F_gOciTN_s08xUvvuQyFt3fC3LslO/view" target="_blank" class="btn">View Certificate</a>
+</div>
+
+</div>
+</section>
+
+<!-- INTERNSHIPS -->
+
+<section id="internships">
+<h2>Internships</h2>
+<div class="grid">
+
+<div class="card">
+<h3>NPCIL Internship</h3>
+<a href="https://drive.google.com/drive/u/0/folders/13OTS52HV97hXzRxsGKxTyNfkTvX-rfEw" target="_blank" class="btn">View Internship</a>
+</div>
+
+<div class="card">
+<h3>Eduskill AI/ML Internship</h3>
+<a href="https://drive.google.com/drive/u/0/folders/13OTS52HV97hXzRxsGKxTyNfkTvX-rfEw" target="_blank" class="btn">View Internship</a>
+</div>
+
+<div class="card">
+<h3>Eduskill Android Internship</h3>
+<a href="https://drive.google.com/drive/u/0/folders/13OTS52HV97hXzRxsGKxTyNfkTvX-rfEw" target="_blank" class="btn">View Internship</a>
+</div>
+
+<div class="card">
+<h3>High Innotronics Data Analytics</h3>
+<a href="https://drive.google.com/drive/u/0/folders/13OTS52HV97hXzRxsGKxTyNfkTvX-rfEw" target="_blank" class="btn">View Internship</a>
+</div>
+
+</div>
+</section>
+
+<footer>
+<p>© 2026 Om Churi</p>
+</footer>
+
+<!-- PREMIUM CHATBOT -->
+
+<div id="chatbot-container">
+<div id="chat-header">💬 Ask Om</div>
+
+<div id="chat-box">
+<p class="bot">Hi 👋 Ask me about skills, projects, or resume!</p>
+</div>
+
+<div id="chat-input">
+<input id="userInput" placeholder="Type...">
+<button onclick="reply()">➤</button>
+</div>
+</div>
+
+<script>
+function reply(){
+let input=document.getElementById("userInput").value;
+let box=document.getElementById("chat-box");
+
+box.innerHTML += `<p class="user">${input}</p>`;
+
+let text=input.toLowerCase();
+let output="Try asking about skills, projects, or resume.";
+
+if(text.includes("skills")) output="I know Python, Machine Learning, Data Analytics.";
+if(text.includes("projects")) output="Scroll up to see my projects!";
+if(text.includes("resume")) output="Click the resume button above 👆";
+if(text.includes("contact")) output="Email: omchuri2005@gmail.com";
+
+setTimeout(()=>{
+box.innerHTML += `<p class="bot">${output}</p>`;
+box.scrollTop=box.scrollHeight;
+},500);
+
+document.getElementById("userInput").value="";
+}
+</script>
+
+</body>
+</html>
