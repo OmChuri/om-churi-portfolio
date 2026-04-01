@@ -236,10 +236,67 @@ padding:10px;
 cursor:pointer;
 }
 
-/* Mobile */
+/* Animated Name */
+.animated-name {
+  background: linear-gradient(90deg, #00c6ff, #0072ff, #00c6ff);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s linear infinite;
+  display: inline-block;
+  filter: drop-shadow(0 0 10px rgba(0,198,255,0.8)) drop-shadow(0 0 20px rgba(0,114,255,0.5));
+}
+@keyframes shine {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Floating Socials */
+.floating-socials {
+  position: fixed;
+  bottom: 20px;
+  right: 80px; /* placed right next to the chat toggle */
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  padding: 10px 20px;
+  border-radius: 30px;
+  display: flex;
+  gap: 20px;
+  z-index: 9998;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.floating-socials a {
+  color: white;
+  font-size: 24px;
+  transition: transform 0.3s;
+}
+.floating-socials a:hover {
+  transform: scale(1.2);
+  color: #00ccff;
+}
+
+/* Jiggle Animation */
+.jiggable {
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+@keyframes jiggleAnim {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg) scale(1.1); }
+  50% { transform: rotate(10deg) scale(1.1); }
+  75% { transform: rotate(-10deg) scale(1.1); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+.is-jiggling {
+  animation: jiggleAnim 0.4s ease-in-out;
+}
+
 @media(max-width:768px){
 .hero h1{font-size:30px;}
 .nav-links{display:none;}
+/* Hide or shrink socials on very small screens to avoid overlap */
+.floating-socials { right: 75px; padding: 10px 15px; }
 }
 </style>
 
@@ -253,7 +310,9 @@ cursor:pointer;
 
 <header>
 <nav>
-<h2>Om Churi</h2>
+<div class="jiggable" onclick="jiggle(this)" style="display:flex; align-items:center;">
+  <img src="oc_logo.png" alt="OC Vector Symbol" style="width:50px; height:50px; border-radius:50%; object-fit:cover; border:2px solid #fff;">
+</div>
 <ul class="nav-links">
 <li><a href="#home">Home</a></li>
 <li><a href="#projects">Projects</a></li>
@@ -268,24 +327,8 @@ cursor:pointer;
 
 <section class="hero" id="home">
 <div>
-<h1>Om Churi</h1>
+<h1 class="jiggable" onclick="jiggle(this)"><span class="animated-name">Om Churi</span></h1>
 <p>IT Engineering Student | AI | Data Analytics</p>
-
-<div class="card">
-<p><i class="fas fa-envelope"></i> 
-<a href="mailto:omchuri2005@gmail.com" style="color:white;">Email</a></p>
-
-<p><i class="fab fa-linkedin"></i> 
-<a href="https://www.linkedin.com/in/om-churi/" target="_blank" style="color:white;">LinkedIn</a></p>
-
-<p><i class="fab fa-github"></i> 
-<a href="https://github.com/OmChuri" target="_blank" style="color:white;">GitHub</a></p>
-
-<a href="https://drive.google.com/file/d/1nHXRuFYmeLYfPqPjmby-mjD9e1yeOe2F/view?usp=sharing" target="_blank" class="btn">
-📄 View Resume
-</a>
-</div>
-
 </div>
 </section>
 
@@ -400,6 +443,14 @@ cursor:pointer;
 <p>© 2026 Om Churi</p>
 </footer>
 
+<!-- FLOATING SOCIALS -->
+<div class="floating-socials">
+  <a href="mailto:omchuri2005@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+  <a href="https://drive.google.com/file/d/1nHXRuFYmeLYfPqPjmby-mjD9e1yeOe2F/view?usp=sharing" target="_blank" title="Resume"><i class="fas fa-file-alt"></i></a>
+  <a href="https://www.linkedin.com/in/om-churi/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+  <a href="https://github.com/OmChuri" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+</div>
+
 <!-- PREMIUM CHATBOT -->
 
 <button id="chat-toggle-btn" onclick="toggleChat()">💬</button>
@@ -421,6 +472,13 @@ cursor:pointer;
 </div>
 
 <script>
+function jiggle(element) {
+  element.classList.remove("is-jiggling");
+  // force a reflow so the animation restarts
+  void element.offsetWidth;
+  element.classList.add("is-jiggling");
+}
+
 function toggleChat() {
   const chatContainer = document.getElementById("chatbot-container");
   if (chatContainer.style.display === "none" || chatContainer.style.display === "") {
