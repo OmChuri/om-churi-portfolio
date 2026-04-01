@@ -139,14 +139,37 @@ img:hover{transform:scale(1.05);}
 /* Chatbot */
 #chatbot-container{
 position:fixed;
-bottom:20px;
+bottom:80px;
 right:20px;
-width:320px;
+width:90%;
+max-width:320px;
 background:rgba(255,255,255,0.1);
 backdrop-filter:blur(15px);
 border-radius:15px;
 overflow:hidden;
 box-shadow:0 10px 30px rgba(0,0,0,0.3);
+display: none; /* Hidden by default */
+z-index: 9999;
+}
+
+#chat-toggle-btn {
+position: fixed;
+bottom: 20px;
+right: 20px;
+width: 50px;
+height: 50px;
+border-radius: 50%;
+background: linear-gradient(45deg,#00ccff,#667eea);
+color: white;
+font-size: 24px;
+border: none;
+cursor: pointer;
+box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+z-index: 10000;
+transition: transform 0.3s;
+}
+#chat-toggle-btn:hover {
+transform: scale(1.1);
 }
 
 #chat-header{
@@ -154,12 +177,29 @@ background:linear-gradient(45deg,#00ccff,#667eea);
 padding:10px;
 text-align:center;
 font-weight:bold;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+#chat-header span {
+flex: 1;
+}
+
+#close-chat-btn {
+background: transparent;
+border: none;
+color: white;
+font-size: 16px;
+cursor: pointer;
 }
 
 #chat-box{
-height:200px;
+height:250px;
 overflow-y:auto;
 padding:10px;
+display: flex;
+flex-direction: column;
 }
 
 .bot{
@@ -362,40 +402,74 @@ cursor:pointer;
 
 <!-- PREMIUM CHATBOT -->
 
+<button id="chat-toggle-btn" onclick="toggleChat()">💬</button>
+
 <div id="chatbot-container">
-<div id="chat-header">💬 Ask Om</div>
+<div id="chat-header">
+  <span>💬 Ask Om AI</span>
+  <button id="close-chat-btn" onclick="toggleChat()">➖</button>
+</div>
 
 <div id="chat-box">
-<p class="bot">Hi 👋 Ask me about skills, projects, or resume!</p>
+<p class="bot">Hi 👋 I am Om's AI Assistant. Ask me about his skills, projects, or resume!</p>
 </div>
 
 <div id="chat-input">
-<input id="userInput" placeholder="Type...">
+<input id="userInput" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
 <button onclick="reply()">➤</button>
 </div>
 </div>
 
 <script>
-function reply(){
-let input=document.getElementById("userInput").value;
-let box=document.getElementById("chat-box");
+function toggleChat() {
+  const chatContainer = document.getElementById("chatbot-container");
+  if (chatContainer.style.display === "none" || chatContainer.style.display === "") {
+    chatContainer.style.display = "block";
+  } else {
+    chatContainer.style.display = "none";
+  }
+}
 
-box.innerHTML += `<p class="user">${input}</p>`;
+function handleKeyPress(e) {
+  if (e.key === "Enter") {
+    reply();
+  }
+}
 
-let text=input.toLowerCase();
-let output="Try asking about skills, projects, or resume.";
+async function reply(){
+  const inputElt = document.getElementById("userInput");
+  let input = inputElt.value.trim();
+  if(!input) return;
 
-if(text.includes("skills")) output="I know Python, Machine Learning, Data Analytics.";
-if(text.includes("projects")) output="Scroll up to see my projects!";
-if(text.includes("resume")) output="Click the resume button above 👆";
-if(text.includes("contact")) output="Email: omchuri2005@gmail.com";
+  let box = document.getElementById("chat-box");
+  box.innerHTML += `<p class="user">${input}</p>`;
+  inputElt.value = "";
+  box.scrollTop = box.scrollHeight;
 
-setTimeout(()=>{
-box.innerHTML += `<p class="bot">${output}</p>`;
-box.scrollTop=box.scrollHeight;
-},500);
+  // Show a typing indicator
+  const typingId = "typing-" + Date.now();
+  box.innerHTML += `<p class="bot" id="${typingId}"><em>AI is typing...</em></p>`;
+  box.scrollTop = box.scrollHeight;
 
-document.getElementById("userInput").value="";
+  try {
+    // Make the REAL connection to the backend!
+    let res = await fetch("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: input })
+    });
+
+    let data = await res.json();
+    
+    // Remove typing indicator and append real response
+    document.getElementById(typingId).remove();
+    box.innerHTML += `<p class="bot">${data.reply}</p>`;
+  } catch (err) {
+    document.getElementById(typingId).remove();
+    box.innerHTML += `<p class="bot">❌ Server is currently offline.</p>`;
+  }
+  
+  box.scrollTop = box.scrollHeight;
 }
 </script>
 
