@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
+import "dotenv/config";
 
 const app = express();
 
@@ -8,10 +9,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Test route (optional)
-app.get("/", (req, res) => {
-  res.send("✅ Server is running...");
-});
+// Serve static frontend files (index.html, script.js, etc.)
+app.use(express.static("."));
 
 // Chat API
 app.post("/chat", async (req, res) => {
@@ -26,7 +25,7 @@ app.post("/chat", async (req, res) => {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": "Bearer YOUR_API_KEY",
+        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -64,7 +63,7 @@ app.post("/chat", async (req, res) => {
 });
 
 // Start server
-const PORT = 3000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
